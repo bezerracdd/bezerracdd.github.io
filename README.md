@@ -1,5 +1,4 @@
-## Hi there 👋
-# 👋 Hello! Welcome to my Github profile.
+## Hi there 👋 Hello! Welcome to my Github profile.
 ## My name is Diego Bezerra 
 
 <!--
