@@ -1,7 +1,9 @@
 ## Hi there 👋 Hello! Welcome to my Github profile.
 ## My name is Diego Bezerra 
 
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" />
+## Ferramentas e Tecnologias
+
+<img loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40" height="40"/>            
           
 <!--
 **BezerraD1/BezerraD1** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
