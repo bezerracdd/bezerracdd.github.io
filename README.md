@@ -1,7 +1,7 @@
 ## Hi there 👋 Hello! Welcome to my Github profile.
 ## My name is Diego Bezerra 
 
-## Ferramentas e Tecnologias
+## Tools and Technologies
 
           
           
