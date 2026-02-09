@@ -4,7 +4,7 @@ import "../styles/WelcomeHero.css";
 
 export default function WelcomeHero() {
   const roles =
-    profile?.heroRoles ?? ["ENGENHEIRO DE DADOS", "CIENTISTA DE DADOS", "ARQUITETO DE DADOS"];
+    profile?.heroRoles ?? ["ENGENHEIRO DE DADOS", "INTEGRAÇÃO DE DADOS", "QUALIDADE DE DADOS"];
 
   const scrollToAbout = (e) => {
     e.preventDefault();
