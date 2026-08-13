@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Bezerra — Data Engineer</title>
+<meta name="description" content="Portfólio de Diego Bezerra — Data Engineer especializado em Data Integration, Data Quality, IDMC e tecnologias MDM.">
+<meta name="author" content="Diego Bezerra">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diego Bezerra — Data Engineer">
+<meta property="og:description" content="Data Integration · Data Quality · IDMC · MDM">
+<meta property="og:url" content="https://bezerracdd.github.io/">
+<meta property="og:image" content="https://bezerracdd.github.io/images/logoBezerrad.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root{
+  --bg:            #070a12;
+  --bg-elev:       #0d1220;
+  --bg-elev-2:     #121a2b;
+  --line:          #1e2740;
+  --line-soft:     #172033;
+  --text:          #e7ecf5;
+  --text-dim:      #96a3bd;
+  --text-faint:    #64708a;
+  --accent:        #4dd8e6;
+  --accent-2:      #7c8cff;
+  --accent-glow:   rgba(77,216,230,.16);
+  --radius:        16px;
+  --maxw:          1140px;
+  --ease:          cubic-bezier(.22,.68,.35,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;line-height:1.65;letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#04121a}
+
+/* ambient background */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(60rem 40rem at 12% -8%, rgba(77,216,230,.10), transparent 60%),
+    radial-gradient(50rem 36rem at 92% 6%, rgba(124,140,255,.10), transparent 62%),
+    radial-gradient(46rem 34rem at 50% 108%, rgba(77,216,230,.06), transparent 60%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 100% 70% at 50% 0%,#000 20%,transparent 75%);
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  transition:background .3s var(--ease),border-color .3s var(--ease),backdrop-filter .3s;
+  border-bottom:1px solid transparent;
+}
+.nav.stuck{
+  background:rgba(7,10,18,.82);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line);
+}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:16px 24px;display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;font-size:17px}
+.brand img{height:19px;width:auto;mix-blend-mode:screen}
+.nav-links{display:flex;gap:6px;margin-left:auto;align-items:center}
+.nav-links a{
+  padding:8px 14px;border-radius:999px;font-size:14.5px;color:var(--text-dim);
+  font-weight:500;transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav-links a.active{color:var(--accent)}
+.nav-cta{
+  margin-left:8px;padding:9px 18px !important;border:1px solid var(--line);
+  color:var(--text) !important;background:var(--bg-elev);
+}
+.nav-cta:hover{border-color:var(--accent);color:var(--accent) !important;background:var(--accent-glow) !important}
+
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);
+  border-radius:10px;padding:9px 11px;cursor:pointer}
+.burger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px}
+.burger span+span{margin-top:4px}
+
+@media(max-width:820px){
+  .burger{display:block}
+  .nav-links{
+    position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;
+    background:rgba(9,13,22,.98);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);padding:10px 16px 18px;
+    display:none;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 8px;border-radius:8px;width:100%}
+  .nav-cta{margin-left:0;text-align:center;margin-top:8px}
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;
+  color:var(--text-dim);border:1px solid var(--line);background:var(--bg-elev);
+  padding:7px 15px;border-radius:999px;margin-bottom:28px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 0 var(--accent-glow);animation:pulse 2.4s infinite}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(77,216,230,.5)}
+  70%{box-shadow:0 0 0 9px rgba(77,216,230,0)}
+  100%{box-shadow:0 0 0 0 rgba(77,216,230,0)}
+}
+h1{
+  font-size:clamp(2.6rem,7.2vw,5rem);line-height:1.02;font-weight:800;
+  letter-spacing:-.04em;margin:0 0 22px;
+}
+h1 .grad{
+  background:linear-gradient(100deg,var(--accent) 0%,var(--accent-2) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.rotor{
+  font-family:'JetBrains Mono',monospace;font-size:clamp(1rem,2.4vw,1.4rem);
+  color:var(--accent);height:1.7em;margin-bottom:22px;font-weight:500;
+}
+.rotor .caret{display:inline-block;width:9px;background:var(--accent);
+  margin-left:3px;animation:blink 1.05s step-end infinite;vertical-align:-2px;height:1.05em}
+@keyframes blink{50%{opacity:0}}
+.lede{font-size:clamp(1rem,1.6vw,1.14rem);color:var(--text-dim);max-width:60ch;margin:0 0 38px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:52px}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:999px;
+  font-weight:600;font-size:15px;transition:transform .2s var(--ease),box-shadow .25s,background .25s,border-color .25s,color .25s;
+  border:1px solid transparent;cursor:pointer;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:linear-gradient(100deg,var(--accent),var(--accent-2));color:#050a14;
+  box-shadow:0 6px 26px -8px rgba(77,216,230,.55)}
+.btn-primary:hover{box-shadow:0 12px 34px -8px rgba(77,216,230,.7)}
+.btn-ghost{border-color:var(--line);color:var(--text);background:var(--bg-elev)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-stats{display:flex;gap:44px;flex-wrap:wrap;padding-top:34px;border-top:1px solid var(--line-soft)}
+.hero-stats .k{font-size:1.65rem;font-weight:700;letter-spacing:-.03em;display:block}
+.hero-stats .l{font-size:12.5px;color:var(--text-faint);text-transform:uppercase;
+  letter-spacing:.09em;font-weight:500}
+
+/* ============================================================
+   Sections
+   ============================================================ */
+section{padding:104px 0;position:relative}
+.sec-head{margin-bottom:52px;max-width:64ch}
+.kicker{
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);
+  letter-spacing:.14em;text-transform:uppercase;font-weight:500;display:block;margin-bottom:14px;
+}
+h2{font-size:clamp(1.85rem,4vw,2.7rem);font-weight:700;letter-spacing:-.035em;
+  line-height:1.12;margin:0 0 16px}
+.sec-head p{color:var(--text-dim);margin:0;font-size:1.02rem}
+
+.card{
+  background:linear-gradient(160deg,var(--bg-elev) 0%,rgba(13,18,32,.55) 100%);
+  border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+  transition:border-color .28s var(--ease),transform .28s var(--ease),background .28s;
+}
+.card:hover{border-color:#2b3752;transform:translateY(-3px);
+  background:linear-gradient(160deg,var(--bg-elev-2) 0%,rgba(13,18,32,.6) 100%)}
+
+.grid{display:grid;gap:20px}
+.grid>.card{display:flex;flex-direction:column}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.g2,.g3{grid-template-columns:1fr}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.35fr .95fr;gap:56px;align-items:start}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
+.about-body p{color:var(--text-dim);margin:0 0 18px}
+.about-body strong{color:var(--text);font-weight:600}
+.facts{display:grid;gap:2px;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;background:var(--line-soft)}
+.fact{background:var(--bg-elev);padding:17px 22px;display:flex;justify-content:space-between;
+  gap:16px;align-items:center;font-size:14.5px}
+.fact .lbl{color:var(--text-faint)}
+.fact .val{font-weight:600;text-align:right}
+
+/* Skills */
+.skill-group{margin-bottom:30px}
+.skill-group h3{font-size:13px;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--text-faint);font-weight:600;margin:0 0 14px}
+.tags{display:flex;flex-wrap:wrap;gap:9px}
+.tag{
+  font-family:'JetBrains Mono',monospace;font-size:13px;padding:8px 15px;
+  border-radius:9px;border:1px solid var(--line);background:var(--bg-elev);
+  color:var(--text-dim);transition:.22s var(--ease);
+}
+.tag:hover{border-color:var(--accent);color:var(--accent);
+  background:var(--accent-glow);transform:translateY(-2px)}
+
+/* Timeline */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;
+  background:linear-gradient(180deg,var(--accent),var(--line) 55%,transparent)}
+.tl-item{position:relative;padding-bottom:38px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:'';position:absolute;left:-30px;top:7px;width:11px;height:11px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--accent)}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);
+  letter-spacing:.03em;margin-bottom:5px}
+.tl-item h3{margin:0 0 3px;font-size:1.1rem;font-weight:650;letter-spacing:-.02em}
+.tl-org{font-size:14px;color:var(--text-faint);margin-bottom:10px}
+.tl-item p{margin:0;color:var(--text-dim);font-size:15px}
+
+.todo{
+  border:1px dashed #33406b;border-radius:12px;padding:16px 20px;font-size:14px;
+  color:var(--text-faint);background:rgba(124,140,255,.05);
+}
+
+/* Projects */
+.proj{display:flex;flex-direction:column;gap:14px;height:100%}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.proj-icon{
+  width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none;
+  background:var(--accent-glow);border:1px solid var(--line);color:var(--accent);
+}
+.proj-icon svg{width:19px;height:19px}
+.proj h3{margin:0;font-size:1.06rem;font-weight:650;letter-spacing:-.02em}
+.proj p{margin:0;color:var(--text-dim);font-size:14.5px;flex:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px}
+.proj-tags span{font-family:'JetBrains Mono',monospace;font-size:11.5px;
+  color:var(--text-faint);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
+.proj-link{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;
+  color:var(--accent);margin-top:2px}
+.proj-link svg{width:14px;height:14px;transition:transform .22s var(--ease)}
+a.card:hover .proj-link svg{transform:translate(3px,-3px)}
+
+/* Contact */
+.contact-box{
+  border:1px solid var(--line);border-radius:22px;padding:clamp(32px,5vw,60px);
+  background:
+    radial-gradient(30rem 18rem at 18% 0%, rgba(77,216,230,.10), transparent 65%),
+    linear-gradient(160deg,var(--bg-elev),rgba(13,18,32,.4));
+  text-align:center;
+}
+.contact-box h2{margin-bottom:14px}
+.contact-box p{color:var(--text-dim);max-width:52ch;margin:0 auto 32px}
+.contact-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line-soft);padding:34px 0;
+  color:var(--text-faint);font-size:13.5px}
+.foot-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-in a:hover{color:var(--accent)}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  .dot,.caret{animation:none}
+}
+
+/* Back to top */
+.top-btn{
+  position:fixed;right:22px;bottom:22px;width:42px;height:42px;border-radius:50%;
+  display:grid;place-items:center;background:var(--bg-elev-2);border:1px solid var(--line);
+  color:var(--text-dim);opacity:0;pointer-events:none;transition:.3s var(--ease);z-index:90;
+}
+.top-btn.show{opacity:1;pointer-events:auto}
+.top-btn:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-3px)}
+</style>
+</head>
+<body id="top">
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <img src="images/logoBezerrad.png" alt="Diego Bezerra">
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#sobre">Sobre</a>
+      <a href="#skills">Skills</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#projetos">Projetos</a>
+      <a class="nav-cta" href="#contato">Contato</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow"><span class="dot"></span> Florianópolis, SC · Brasil</span>
+    </div>
+    <h1 class="rv">Olá, eu sou<br><span class="grad">Diego Bezerra</span></h1>
+    <div class="rotor rv" aria-live="polite"><span id="rotorText"></span><span class="caret"></span></div>
+    <p class="lede rv">
+      Data Engineer focado em integração de dados, qualidade de dados e plataformas MDM.
+      Construo pipelines confiáveis que transformam dados dispersos em informação
+      consistente e pronta para o negócio.
+    </p>
+    <div class="hero-actions rv">
+      <a class="btn btn-primary" href="#projetos">
+        Ver projetos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/diego-bezerra-30801336" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.5 8.75 21 11 21 14v7h-4v-6.2c0-1.5-.03-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9z"/></svg>
+        LinkedIn
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/bezerracdd" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.82 1.18 1.85 1.18 3.11 0 4.43-2.69 5.4-5.26 5.69.42.36.8 1.08.8 2.18v3.23c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="hero-stats rv">
+      <div><span class="k">Data</span><span class="l">Engineering</span></div>
+      <div><span class="k">IDMC</span><span class="l">Informatica Cloud</span></div>
+      <div><span class="k">MDM</span><span class="l">Master Data</span></div>
+      <div><span class="k">Spark</span><span class="l">Processamento distribuído</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= SOBRE ================= -->
+<section id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-body rv">
+        <span class="kicker">01 — Sobre</span>
+        <h2>Dado bom é dado em que se pode confiar</h2>
+        <p>
+          Sou <strong>Data Engineer</strong> e trabalho na camada em que os dados deixam de ser
+          arquivos soltos e passam a ser um ativo: <strong>integração</strong>, <strong>qualidade</strong>
+          e <strong>gestão de dados mestres</strong>.
+        </p>
+        <p>
+          No dia a dia atuo com <strong>IDMC (Informatica Intelligent Data Management Cloud)</strong>
+          e tecnologias de <strong>MDM</strong>, desenhando fluxos de ingestão, transformação e
+          consolidação que sustentam relatórios, produtos de dados e decisões de negócio.
+        </p>
+        <p>
+          Fora do trabalho, mantenho projetos de estudo em <strong>Python</strong> e
+          <strong>Apache Spark</strong> — pipelines de exploração com Spark SQL, ETL distribuído
+          e detecção de anomalias com machine learning. Aprendo construindo.
+        </p>
+      </div>
+      <aside class="rv">
+        <div class="facts">
+          <div class="fact"><span class="lbl">Nome</span><span class="val">Diego Bezerra</span></div>
+          <div class="fact"><span class="lbl">Função</span><span class="val">Data Engineer</span></div>
+          <div class="fact"><span class="lbl">Localização</span><span class="val">Florianópolis · SC</span></div>
+          <div class="fact"><span class="lbl">Foco</span><span class="val">Integration · Quality · MDM</span></div>
+          <div class="fact"><span class="lbl">Idiomas</span><span class="val">Português · Inglês</span></div>
+          <div class="fact"><span class="lbl">GitHub</span><span class="val"><a href="https://github.com/bezerracdd" target="_blank" rel="noopener">@bezerracdd</a></span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">02 — Skills</span>
+      <h2>Tecnologias com que trabalho</h2>
+      <p>Ferramentas e linguagens que uso para mover, tratar e governar dados.</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="card rv">
+        <div class="skill-group" style="margin-bottom:0">
+          <h3>Integração &amp; Master Data</h3>
+          <div class="tags">
+            <span class="tag">Informatica IDMC</span>
+            <span class="tag">Cloud Data Integration</span>
+            <span class="tag">MDM</span>
+            <span class="tag">Data Quality</span>
+            <span class="tag">ETL / ELT</span>
+            <span class="tag">Data Modeling</span>
+            <span class="tag">Data Governance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rv">
+        <div class="skill-group" style="margin-bottom:0">
+          <h3>Engenharia &amp; Processamento</h3>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Apache Spark</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">Spark SQL</span>
+            <span class="tag">Spark MLlib</span>
+            <span class="tag">Pipelines de dados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rv">
+        <div class="skill-group" style="margin-bottom:0">
+          <h3>Dados &amp; Armazenamento</h3>
+          <div class="tags">
+            <span class="tag">Data Warehouse</span>
+            <span class="tag">Data Lake</span>
+            <span class="tag">Bancos relacionais</span>
+            <span class="tag">NoSQL</span>
+            <span class="tag">Cloud</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rv">
+        <div class="skill-group" style="margin-bottom:0">
+          <h3>Web &amp; Ferramentas</h3>
+          <div class="tags">
+            <span class="tag">Git &amp; GitHub</span>
+            <span class="tag">Linux</span>
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIÊNCIA ================= -->
+<section id="experiencia">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">03 — Trajetória</span>
+      <h2>Experiência e formação</h2>
+      <p>Onde apliquei esse conhecimento na prática.</p>
+    </div>
+
+    <div class="grid g2" style="gap:56px">
+      <div class="rv">
+        <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.11em;color:var(--text-faint);margin:0 0 22px">Experiência</h3>
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-date">Atual</div>
+            <h3>Data Engineer</h3>
+            <div class="tl-org">Data Integration · Data Quality · IDMC · MDM</div>
+            <p>Desenvolvimento e sustentação de pipelines de integração de dados, rotinas de qualidade
+               e soluções de gestão de dados mestres.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">— · —</div>
+            <h3>[Cargo anterior]</h3>
+            <div class="tl-org">[Empresa] · [Período]</div>
+            <p>[Descreva aqui as principais responsabilidades e entregas desta posição.]</p>
+          </div>
+        </div>
+        <div class="todo" style="margin-top:20px">
+          ✎ Substitua os itens em colchetes pelas suas experiências reais (empresa, cargo, período e entregas).
+        </div>
+      </div>
+
+      <div class="rv">
+        <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.11em;color:var(--text-faint);margin:0 0 22px">Formação &amp; Certificações</h3>
+        <div class="tl">
+          <div class="tl-item">
+            <div class="tl-date">[Ano]</div>
+            <h3>[Curso / Graduação]</h3>
+            <div class="tl-org">[Instituição]</div>
+            <p>[Breve descrição do que foi estudado.]</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">[Ano]</div>
+            <h3>[Certificação]</h3>
+            <div class="tl-org">[Emissor]</div>
+            <p>[Breve descrição.]</p>
+          </div>
+        </div>
+        <div class="todo" style="margin-top:20px">
+          ✎ Adicione aqui sua formação acadêmica e certificações (ex.: Informatica, cloud, dados).
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJETOS ================= -->
+<section id="projetos">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">04 — Projetos</span>
+      <h2>O que eu construo</h2>
+      <p>Projetos públicos no meu GitHub — código aberto para quem quiser olhar por dentro.</p>
+    </div>
+
+    <div class="grid g3">
+      <a class="card rv" href="https://github.com/bezerracdd/project-01-data-pipeline-sparksql" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+            </div>
+          </div>
+          <h3>Data Pipeline com Spark SQL</h3>
+          <p>Pipeline de exploração de dados e operações SQL distribuídas sobre Apache Spark,
+             cobrindo ingestão, transformação e consulta analítica.</p>
+          <div class="proj-tags"><span>Python</span><span>Apache Spark</span><span>Spark SQL</span></div>
+          <span class="proj-link">Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://github.com/bezerracdd/project-02-financial-anomaly-ml-detection" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 17l5-6 4 4 5-7 4 5"/><path d="M3 21h18"/></svg>
+            </div>
+          </div>
+          <h3>Detecção de Anomalias Financeiras</h3>
+          <p>Pipeline de ETL distribuído com Apache Spark para detectar transações suspeitas,
+             da ingestão com validação de schema até o modelo de machine learning.</p>
+          <div class="proj-tags"><span>PySpark</span><span>MLlib</span><span>ETL</span></div>
+          <span class="proj-link">Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://github.com/bezerracdd/python-Aplication-IA" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M9 3v4M15 3v4M9 13h.01M15 13h.01"/></svg>
+            </div>
+          </div>
+          <h3>Python &amp; Inteligência Artificial</h3>
+          <p>Repositório de estudos práticos em Python aplicado a ciência de dados
+             e inteligência artificial.</p>
+          <div class="proj-tags"><span>Python</span><span>Data Science</span><span>IA</span></div>
+          <span class="proj-link">Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://github.com/bezerracdd/web-moderno-db" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg>
+            </div>
+          </div>
+          <h3>Web Moderno</h3>
+          <p>Estudos de desenvolvimento web moderno com HTML, CSS e JavaScript,
+             incluindo integração com bancos de dados.</p>
+          <div class="proj-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+          <span class="proj-link">Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://github.com/bezerracdd/week-ai-data-engineer" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/></svg>
+            </div>
+          </div>
+          <h3>Week AI · Data Engineer</h3>
+          <p>Material e exercícios de imersão em engenharia de dados aplicada
+             a inteligência artificial.</p>
+          <div class="proj-tags"><span>Data Engineering</span><span>IA</span></div>
+          <span class="proj-link">Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://github.com/bezerracdd?tab=repositories" target="_blank" rel="noopener">
+        <div class="proj">
+          <div class="proj-top">
+            <div class="proj-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            </div>
+          </div>
+          <h3>Todos os repositórios</h3>
+          <p>Veja a lista completa de projetos, experimentos e materiais de estudo
+             publicados no meu GitHub.</p>
+          <div class="proj-tags"><span>@bezerracdd</span></div>
+          <span class="proj-link">Abrir GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTATO ================= -->
+<section id="contato">
+  <div class="wrap">
+    <div class="contact-box rv">
+      <span class="kicker">05 — Contato</span>
+      <h2>Vamos conversar sobre dados?</h2>
+      <p>Aberto a trocas sobre integração de dados, qualidade, MDM e engenharia em geral.
+         Me chame por qualquer um dos canais abaixo.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:cdiegoll@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Enviar e-mail
+        </a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/diego-bezerra-30801336" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.5 8.75 21 11 21 14v7h-4v-6.2c0-1.5-.03-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/bezerracdd" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.74 1.27 3.4.97.11-.76.41-1.27.75-1.56-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.82 1.18 1.85 1.18 3.11 0 4.43-2.69 5.4-5.26 5.69.42.36.8 1.08.8 2.18v3.23c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© <span id="yr">2026</span> Diego Bezerra — Data Engineer</span>
+    <span>Feito com HTML, CSS e JavaScript · hospedado no GitHub Pages</span>
+  </div>
+</footer>
+
+<a href="#top" class="top-btn" id="topBtn" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="17" height="17"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+</a>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ano */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* nav sticky + back-to-top */
+  var nav = document.getElementById('nav');
+  var topBtn = document.getElementById('topBtn');
+  function onScroll(){
+    var y = window.scrollY;
+    nav.classList.toggle('stuck', y > 20);
+    topBtn.classList.toggle('show', y > 600);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* menu mobile */
+  var burger = document.getElementById('burger');
+  var links  = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') {
+      links.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    }
+  });
+
+  /* reveal on scroll */
+  var items = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en, i){
+        if (en.isIntersecting) {
+          en.target.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold: .12, rootMargin: '0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* nav link ativo por seção */
+  var secs = [].slice.call(document.querySelectorAll('section[id]'));
+  var navA = [].slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        navA.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id);
+        });
+      });
+    }, {rootMargin: '-45% 0px -50% 0px'});
+    secs.forEach(function(s){ spy.observe(s); });
+  }
+
+  /* rotor de cargos */
+  var roles = ['Data Engineer','Data Integration','Data Quality','IDMC / Informatica','MDM Technologies'];
+  var out = document.getElementById('rotorText');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    out.textContent = roles[0];
+  } else {
+    var r = 0, c = 0, del = false;
+    (function tick(){
+      var word = roles[r];
+      c = del ? c - 1 : c + 1;
+      out.textContent = word.slice(0, c);
+      var wait = del ? 45 : 85;
+      if (!del && c === word.length) { wait = 1700; del = true; }
+      else if (del && c === 0) { del = false; r = (r + 1) % roles.length; wait = 320; }
+      setTimeout(tick, wait);
+    })();
+  }
+})();
+</script>
+</body>
+</html>
